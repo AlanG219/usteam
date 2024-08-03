@@ -42,7 +42,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def fullImageName = "${env.NEXUS_HOST}/${env.DOCKER_REPO}/${env.IMAGE_NAME}:latest"
+                    def fullImageName = "${env.NEXUS_HOST}/${env.NEXUS_REPO}/${env.IMAGE_NAME}:latest"
                     sh "docker build -t ${fullImageName} ."
                 }
             }
@@ -70,7 +70,7 @@ pipeline {
         stage('Log Into Nexus Docker Repo') {
             steps {
                 script {
-                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin https://${env.NEXUS_HOST}'
+                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin https://nexus.ticktocktv.com/repository/nexus-repo/'
                 }
             }
         }
