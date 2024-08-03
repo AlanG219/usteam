@@ -71,7 +71,7 @@ pipeline {
         stage('Log Into Nexus Docker Repo') {
             steps {
                 script {
-                    sh 'docker login --username=admin --password=admin123 {{ NEXUS_IP }}'
+                    sh 'docker login --username=admin --password=admin123 54.229.110.95:8085'
                 }
             }
         }
