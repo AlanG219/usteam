@@ -1,8 +1,11 @@
-pipeline{
+pipeline {
     agent any
     environment {
-        NEXUS_CREDS = credentials('nexus-creds')
-        NEXUS_REPO = 'repository/nexus-repo'
+        NEXUS_CREDS = credentials('nexus-creds') // Nexus credentials containing both username and password
+        NEXUS_HOST = 'nexus.ticktocktv.com' // Nexus repository hostname
+        NEXUS_REPO = 'repository/nexus-repo' // Nexus repository path
+        IMAGE_NAME = 'petclinicapps' // Docker image name
+        TRIVY_IMAGE = 'aquasec/trivy:latest' // Trivy Docker image
     }
     stages {
         stage('Code Analysis') {
@@ -37,7 +40,10 @@ pipeline{
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $NEXUS_REPO/petclinicapps .'
+                script {
+                    def fullImageName = "${env.NEXUS_HOST}/${env.NEXUS_REPO}/${env.IMAGE_NAME}:latest"
+                    sh "docker build -t ${fullImageName} ."
+                }
             }
         }
         stage('Push Artifact to Nexus Repo') {
@@ -62,17 +68,25 @@ pipeline{
         }
         stage('Log Into Nexus Docker Repo') {
             steps {
-                sh 'docker login --username $NEXUS_CREDS --password $NEXUS_CREDS $NEXUS_REPO'
+                script {
+                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin $NEXUS_HOST'
+                }
             }
         }
         stage('Push to Nexus Docker Repo') {
             steps {
-                sh 'docker push $NEXUS_REPO/petclinicapps'
+                script {
+                    def fullImageName = "${env.NEXUS_HOST}/${env.NEXUS_REPO}/${env.IMAGE_NAME}:latest"
+                    sh "docker push ${fullImageName}"
+                }
             }
         }
         stage('Trivy image Scan') {
             steps {
-                sh "trivy image $NEXUS_REPO/petclinicapps > trivyfs.txt"
+                script {
+                    def fullImageName = "${env.NEXUS_HOST}/${env.NEXUS_REPO}/${env.IMAGE_NAME}:latest"
+                    sh "trivy image ${fullImageName} > trivyimage.txt"
+                }
             }
         }
         stage('Deploy to stage') {
