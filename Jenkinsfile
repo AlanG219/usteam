@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment {
         NEXUS_CREDS = credentials('nexus-creds')
-        NEXUS_REPO = credentials('nexus-creds')
+        NEXUS_REPO = 'https://nexus.ticktocktv.com/repository/nexus-repo/'
     }
     stages {
         stage('Code Analysis') {
