@@ -70,7 +70,7 @@ pipeline {
         stage('Log Into Nexus Docker Repo') {
             steps {
                 script {
-                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin https://nexus.ticktocktv.com/repository/nexus-repo/'
+                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin https://nexus.ticktocktv.com/repository/docker-repo/'
                 }
             }
         }
