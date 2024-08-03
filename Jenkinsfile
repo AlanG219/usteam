@@ -4,6 +4,7 @@ pipeline {
         NEXUS_CREDS = credentials('nexus-creds') // Nexus credentials containing both username and password
         NEXUS_HOST = 'nexus.ticktocktv.com' // Nexus repository hostname
         NEXUS_REPO = 'repository/nexus-repo' // Nexus repository path
+        DOCKER_REPO = 'repository/docker-repo' // docker repository path
         IMAGE_NAME = 'petclinicapps' // Docker image name
         TRIVY_IMAGE = 'aquasec/trivy:latest' // Trivy Docker image
     }
@@ -76,7 +77,7 @@ pipeline {
         stage('Push to Nexus Docker Repo') {
             steps {
                 script {
-                    def fullImageName = "${env.NEXUS_HOST}/${env.NEXUS_REPO}/${env.IMAGE_NAME}:latest"
+                    def fullImageName = "${env.NEXUS_HOST}/${env.DOCKER_REPO}/${env.IMAGE_NAME}:latest"
                     sh "docker push ${fullImageName}"
                 }
             }
