@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment {
         NEXUS_CREDS = credentials('nexus-creds')
-        NEXUS_REPO = credentials('nexus-repo')
+        NEXUS_REPO = credentials('nexus-creds')
     }
     stages {
         stage('Code Analysis') {
@@ -62,7 +62,7 @@ pipeline{
         }
         stage('Log Into Nexus Docker Repo') {
             steps {
-                sh 'docker login --username $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_REPO'
+                sh 'docker login --username $NEXUS_CREDS --password $NEXUS_CREDS $NEXUS_REPO'
             }
         }
         stage('Push to Nexus Docker Repo') {
