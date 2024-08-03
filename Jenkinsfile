@@ -42,7 +42,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def fullImageName = "${env.NEXUS_HOST}/${env.NEXUS_REPO}/${env.IMAGE_NAME}:latest"
+                    def fullImageName = "${env.NEXUS_HOST}/${env.DOCKER_REPO}/${env.IMAGE_NAME}:latest"
                     sh "docker build -t ${fullImageName} ."
                 }
             }
