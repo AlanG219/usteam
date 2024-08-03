@@ -7,7 +7,7 @@ pipeline {
         DOCKER_REPO = 'repository/docker-repo' // docker repository path
         IMAGE_NAME = 'petclinicapps' // Docker image name
         TRIVY_IMAGE = 'aquasec/trivy:latest' // Trivy Docker image
-        NEXUS_IP = 'nexus.ticktocktv.com'
+        NEXUS_IP = 'nexus.ticktocktv.com:8081'
     }
     stages {
         stage('Code Analysis') {
