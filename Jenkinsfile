@@ -55,7 +55,7 @@ pipeline {
                 file: 'target/spring-petclinic-2.4.2.war',
                 type: 'war']],
                 credentialsId: 'nexus-creds',
-                groupId: 'Petclinic',
+                groupId: 'Petclinic', 
                 nexusUrl: 'nexus.ticktocktv.com',
                 nexusVersion: 'nexus3',
                 protocol: 'https',
