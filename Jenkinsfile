@@ -7,7 +7,7 @@ pipeline {
         DOCKER_REPO = 'repository/docker-repo' // docker repository path
         IMAGE_NAME = 'petclinicapps' // Docker image name
         TRIVY_IMAGE = 'aquasec/trivy:latest' // Trivy Docker image
-        NEXUS_IP = '54.229.110.95'
+        NEXUS_IP = '54.229.110.95:8085'
     }
     stages {
         stage('Code Analysis') {
@@ -71,7 +71,7 @@ pipeline {
         stage('Log Into Nexus Docker Repo') {
             steps {
                 script {
-                    sh 'docker login --username=admin --password=admin123 https://nexus.ticktocktv.com'
+                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin ${NEXUS_IP}'
                 }
             }
         }
