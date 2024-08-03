@@ -1,9 +1,9 @@
 pipeline{
     agent any
     environment {
-        NEXUS_USER = 'admin'
-        NEXUS_PASSWORD = 'admin123'
-        NEXUS_REPO = 'repository/nexus-repo/'
+        NEXUS_USER = credentials('nexus-username')
+        NEXUS_PASSWORD = credentials('nexus-password')
+        NEXUS_REPO = credentials('nexus-repo')
     }
     stages {
         stage('Code Analysis') {
