@@ -71,8 +71,7 @@ pipeline {
         stage('Log Into Nexus Docker Repo') {
             steps {
                 script {
-                    def fullImageName = "${env.NEXUS_HOST}/${env.NEXUS_REPO}/${env.IMAGE_NAME}:latest"
-                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin ${fullImageName}'
+                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin https://nexus.ticktocktv.com:8081'
                 }
             }
         }
