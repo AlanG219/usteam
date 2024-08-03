@@ -71,7 +71,7 @@ pipeline {
         stage('Log Into Nexus Docker Repo') {
             steps {
                 script {
-                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin ${NEXUS_IP}'
+                    sh 'echo $NEXUS_CREDS_PSW | docker login -u $NEXUS_CREDS_USR --password-stdin https://${NEXUS_IP}'
                 }
             }
         }
