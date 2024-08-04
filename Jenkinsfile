@@ -76,7 +76,7 @@ pipeline{
                 sh "trivy image $NEXUS_REPO/petclinicapps > trivyfs.txt"
             }
         }
-        stage('Deploy to stage') {
+        stage('Deploy to stage') { 
             steps {
                 sshagent(['ansible-key']) {
                     sh 'ssh -t -t ec2-user@10.0.3.68 -o strictHostKeyChecking=no "ansible-playbook -i /etc/ansible/stage-hosts /etc/ansible/stage_playbook.yml"'
