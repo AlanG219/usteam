@@ -22,21 +22,14 @@ pipeline{
         }
         stage('Dependency Check') {
             steps {
-                script {
-                    // Run Dependency-Check
-                    def result = sh(script: 'dependency-check --scan ./ --disableYarnAudit --disableNodeAudit --failBuildOnCVSS 0 --out ./dependency-check-report.xml', returnStatus: true)
-                    if (result != 0) {
-                        error "Dependency-Check failed with exit code ${result}"
-                    }
-                }
-            }
-        }
-
-        stage('Publish Dependency-Check Report') {
-            steps {
+                // Run Dependency-Check using the tool configured in Jenkins
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --failBuildOnCVSS 0', odcInstallation: 'DP-Check'
+        
+                // Publish the Dependency-Check report
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
+
 
 
         // stage('Test Code') {
