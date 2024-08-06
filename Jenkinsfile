@@ -20,12 +20,23 @@ pipeline{
                 }
             }
         }
-        // stage('Dependency Check') {
-        //     steps {
-        //         dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --failBuildOnCVSS 0', odcInstallation: 'DP-Check'
-        //         dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-        //     }
-        // }
+        stage('Dependency Check') {
+            steps {
+                script {
+                    // Run Dependency-Check
+                    def result = sh(script: 'dependency-check --scan ./ --disableYarnAudit --disableNodeAudit --failBuildOnCVSS 0 --out ./dependency-check-report.xml', returnStatus: true)
+                    if (result != 0) {
+                        error "Dependency-Check failed with exit code ${result}"
+                    }
+                }
+            }
+        }
+
+        stage('Publish Dependency-Check Report') {
+            steps {
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
 
 
         // stage('Test Code') {
