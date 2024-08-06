@@ -23,7 +23,7 @@ pipeline{
         stage('Dependency Check') {
             steps {
                 // Run Dependency-Check using the tool configured in Jenkins
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --failBuildOnCVSS 0', odcInstallation: 'DP-Check'
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --failOnCVSS 0', odcInstallation: 'DP-Check'
         
                 // Publish the Dependency-Check report
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
