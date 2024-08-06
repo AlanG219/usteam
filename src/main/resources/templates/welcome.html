@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
-
+<html xmlns:th="https://www.thymeleaf.org">
   <body>
-
-    <h1 th:text="#{welcome.message}">Welcome to Pet Adoption Auto-Discovery end to end Project</h1>
+    <h1 th:text="#{Welcome To Pet Adoption Auto-Discovery End To End Project}">Welcome To Pet Adoption Auto-Discovery End To End Project</h1>
     <div class="row">
-        <div class="col-md-12">
-          <img class="img-responsive" src="../static/resources/images/pet4.jpeg" th:src="@{/resources/images/pet4.jpeg}"/>
-        </div>
+      <div class="col-md-12">
+        <img class="img-responsive" th:src="@{/resources/images/pet4.jpeg}"/>
+      </div>
     </div>
-
   </body>
-
 </html>
+
