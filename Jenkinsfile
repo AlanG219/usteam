@@ -20,7 +20,7 @@ pipeline{
                 }
             }
         }
-        stage('Dependency Check') {
+        stage('OWASP Dependency Check') {
             steps {
                 // Run Dependency-Check using the tool configured in Jenkins
                 dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --failOnCVSS 0', odcInstallation: 'DP-Check'
@@ -62,7 +62,7 @@ pipeline{
                 version: '1.0'
             }
         }
-        stage('Trivy fs Scan') {
+        stage('Trivy Filesystem Scan') {
             steps {
                 sh "trivy fs . > trivyfs.txt"
             }
